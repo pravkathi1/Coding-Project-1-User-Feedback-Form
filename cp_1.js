@@ -132,3 +132,16 @@ feedbackSection.addEventListener("blur", (event) => {
   }
 }, true);
 
+// step 5 stoppropagation
+
+document.body.addEventListener("click", () => {
+  console.log("Background clicked!");
+});
+
+const formContainer = document.getElementById("feedback-form");
+
+formContainer.addEventListener("click", (event) => {
+  // stop this click from reaching the body listener
+  event.stopPropagation();
+  console.log("Click happened inside the form — not passed to background.");
+});
