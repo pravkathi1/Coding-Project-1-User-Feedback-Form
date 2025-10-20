@@ -1,3 +1,4 @@
+// step 3.1 count characters as the user types (use input or keydown event)
 const nameInput = document.getElementById("name");
 const emailInput = document.getElementById("email");
 const commentsInput = document.getElementById("comments");
@@ -20,3 +21,9 @@ commentsInput.addEventListener("input", () => {
   commentsCount.textContent = `Characters: ${commentsInput.value.length}`;
 });
 
+// step 3.2 display tooltips on field mouseover and hide on mouseout
+const tooltipData = {
+  name: "Enter your full name.",
+  email: "Enter a valid email address.",
+  comments: "Tell us what you think about your experience.",
+};
