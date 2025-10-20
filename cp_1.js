@@ -63,4 +63,43 @@ form.addEventListener("submit", (e) => {
   if (valid) console.log("Form is valid!");
 });
 
+// step 3.4 append valid feedback entries
+
+const responseSection = document.getElementById("response");
+const feedbackDisplay = document.createElement("div");
+feedbackDisplay.id = "feedback-display";
+responseSection.appendChild(feedbackDisplay);
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  // reuse validation logic
+  document.querySelectorAll(".error").forEach((err) => err.remove());
+  let valid = true;
+
+  [nameInput, emailInput, commentsInput].forEach((field) => {
+    if (field.value.trim() === "") {
+      const error = document.createElement("p");
+      error.className = "error";
+      error.textContent = `${field.previousElementSibling.textContent} cannot be empty.`;
+      field.insertAdjacentElement("afterend", error);
+      valid = false;
+    }
+  });
+
+  // if all inputs are valid, add a feedback entry
+  if (valid) {
+    const entry = document.createElement("div");
+    entry.className = "feedback-entry";
+    entry.innerHTML = `
+      <strong>${nameInput.value}</strong> (${emailInput.value})<br>
+      ${commentsInput.value}
+      <hr>
+    `;
+    feedbackDisplay.appendChild(entry);
+
+    // reset form
+    form.reset();
+  }
+});
 
