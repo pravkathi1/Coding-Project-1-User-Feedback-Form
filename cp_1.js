@@ -27,3 +27,40 @@ const tooltipData = {
   email: "Enter a valid email address.",
   comments: "Tell us what you think about your experience.",
 };
+[nameInput, emailInput, commentsInput].forEach((field) => {
+  const tooltip = document.createElement("span");
+  tooltip.className = "tooltip";
+  tooltip.style.display = "none";
+  tooltip.textContent = tooltipData[field.id];
+  field.insertAdjacentElement("afterend", tooltip);
+
+  field.addEventListener("mouseover", () => (tooltip.style.display = "inline"));
+  field.addEventListener("mouseout", () => (tooltip.style.display = "none"));
+});
+
+// step 3.3 prevent submission if fields are empty
+const form = document.getElementById("feedback-form");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault(); // stop actual submission
+
+  // remove old error messages
+  document.querySelectorAll(".error").forEach((err) => err.remove());
+
+  let valid = true;
+
+  [nameInput, emailInput, commentsInput].forEach((field) => {
+    if (field.value.trim() === "") {
+      const error = document.createElement("p");
+      error.className = "error";
+      error.textContent = `${field.previousElementSibling.textContent} cannot be empty.`;
+      field.insertAdjacentElement("afterend", error);
+      valid = false;
+    }
+  });
+
+  // If valid, we’ll handle displaying feedback in the next step
+  if (valid) console.log("Form is valid!");
+});
+
+
