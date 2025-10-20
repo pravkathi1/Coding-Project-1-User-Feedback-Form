@@ -103,3 +103,32 @@ form.addEventListener("submit", (e) => {
   }
 });
 
+// step 4: event bubbling and delegation
+const feedbackSection = document.getElementById("feedback-section");
+
+feedbackSection.addEventListener("input", (event) => {
+  // check which field triggered the event
+  const target = event.target;
+
+  if (target.matches("#name")) {
+    console.log("Name field changed:", target.value);
+  } else if (target.matches("#email")) {
+    console.log("Email field changed:", target.value);
+  } else if (target.matches("#comments")) {
+    console.log("Comments field changed:", target.value.length, "characters");
+  }
+});
+
+// you can also listen for focus or blur using delegation
+feedbackSection.addEventListener("focus", (event) => {
+  if (event.target.tagName === "INPUT" || event.target.tagName === "TEXTAREA") {
+    event.target.style.borderColor = "#006747"; // highlight field
+  }
+}, true); // useCapture = true to catch focus before it bubbles
+
+feedbackSection.addEventListener("blur", (event) => {
+  if (event.target.tagName === "INPUT" || event.target.tagName === "TEXTAREA") {
+    event.target.style.borderColor = "#ccc"; // reset border
+  }
+}, true);
+
